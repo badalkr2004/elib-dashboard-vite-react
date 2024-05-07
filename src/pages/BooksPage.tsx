@@ -33,7 +33,8 @@ import {
 import { getBooks } from "@/http/api";
 import { Book } from "@/types";
 import { useQuery } from "@tanstack/react-query";
-import { LoaderCircle, MoreHorizontal } from "lucide-react";
+import { LoaderCircle, MoreHorizontal, PlusCircle } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const BooksPage = () => {
   const { data, isLoading, isError } = useQuery({
@@ -43,18 +44,27 @@ const BooksPage = () => {
   });
 
   return (
-    <div className="overflow-y-scroll">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/dashboard/home">Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/dashboard/books">Books</BreadcrumbLink>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
+    <div>
+      <div className="flex justify-between">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/dashboard/home">Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/dashboard/books">Books</BreadcrumbLink>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <Link to={"/dashboard/books/create"}>
+          <Button>
+            <PlusCircle size={18} />
+            <span className="ml-2"> Add Book</span>
+          </Button>
+        </Link>
+      </div>
 
       {/* table from heade */}
 
