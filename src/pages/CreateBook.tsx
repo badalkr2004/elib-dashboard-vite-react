@@ -31,6 +31,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createBook } from "@/http/api";
 import { LoaderCircle } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   title: z.string().min(2, {
@@ -52,6 +53,7 @@ const formSchema = z.object({
 
 const CreateBook = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -72,6 +74,15 @@ const CreateBook = () => {
       queryClient.invalidateQueries({ queryKey: ["books"] });
       console.log("Book uploaded successfully");
       navigate("/dashboard/books");
+      toast({
+        title: "Upload Successfull",
+      });
+    },
+
+    onError: () => {
+      toast({
+        title: "Something Error happend while uplaoding",
+      });
     },
   });
 
