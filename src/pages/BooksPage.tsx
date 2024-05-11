@@ -4,6 +4,7 @@ import {
   BreadcrumbItem,
   BreadcrumbLink,
   BreadcrumbList,
+  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
@@ -37,7 +38,7 @@ import { LoaderCircle, MoreHorizontal, PlusCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const BooksPage = () => {
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["books"],
     queryFn: getBooks,
     staleTime: 10000, // milliseconds
@@ -53,7 +54,7 @@ const BooksPage = () => {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href="/dashboard/books">Books</BreadcrumbLink>
+              <BreadcrumbPage>Books</BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>

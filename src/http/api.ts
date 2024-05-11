@@ -1,9 +1,18 @@
+import useTokenStore from '@/store'
 import axios from 'axios'
 const api = axios.create({
     baseURL: import.meta.env.VITE_BASE_URL,
     headers: {
         'Content-Type': 'application/json'
     }
+})
+
+api.interceptors.request.use(config => {
+    const token = useTokenStore.getState().token
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
 })
 
 
@@ -15,3 +24,8 @@ export const register = async (data: { name: string, email: string, password: st
 }
 
 export const getBooks = async () => api.get('api/books')
+export const createBook = async (data: FormData) => api.post('api/books', data, {
+    headers: {
+        'Content-Type': 'multipart/form-data'
+    }
+})
